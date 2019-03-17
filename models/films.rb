@@ -1,13 +1,14 @@
 require_relative("../db/sqlrunner.rb")
 
 class Film
-  attr_reader :id
+  attr_reader :id, :showtime
   attr_accessor :title, :price
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
     @title = options['title']
     @price = options['price'].to_i
+    @showtime = options['showtime']
   end
 
   def save
@@ -57,6 +58,37 @@ class Film
     result = Ticket.hash_unpack(result_hash).length
     return result
   end
+
+  # def self.matinee_count
+  #   sql = "SELECT SUM(matinee)
+  #         FROM films"
+  #   # value = [@matinee]
+  #   result = SqlRunner.run(sql)
+  #   return result
+  # end
+
+  # def self.evening_count
+  #   sql = "SELECT SUM(evening)
+  #         FROM films"
+  #   # value = [@matinee]
+  #   result = SqlRunner.run(sql)
+  #   return result
+  # end
+
+  # def self.add_to_showtimes
+  #   sql1 = "SELECT FROM films
+  #          WHERE $1 = 'matinee'"
+  #   values1 = [@showtime]
+  #   result_hash = SqlRunner.run(sql, values)
+  #   result = Film.hash_unpack(result_hash).length
+  #   @matinee = result
+  #
+  #   sql = "INSERT INTO show_times (film_id, matinee, evening)
+  #         VALUES ($1, $2, $3);
+  #         "
+  #   values = [@id, @matinee.sum, @evening.sum]
+  #   SqlRunner.run(sql, values)
+  # end
 
   def self.delete_all()
     sql = "DELETE FROM films"

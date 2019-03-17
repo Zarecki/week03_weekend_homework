@@ -8,6 +8,7 @@ class Customer
     @id = options['id'].to_i if options['id']
     @name = options['name']
     @funds = options['funds'].to_i
+    @showing_time = options['showing_time']
   end
 
 def save
